@@ -30,8 +30,10 @@
   </style>
 </head>
 <body>
-  <textarea placeholder="Type here..."></textarea>
-</body>
+    <div id="container">
+    <textarea id="input" placeholder="Type something and press Enter..."></textarea>
+    <div id="output"></div>
+    </div>
     <script>
     const textarea = document.getElementById('input');
     const output = document.getElementById('output');
@@ -51,5 +53,6 @@
         }, 100); // speed of typing
       }
     });
-      <script/>
+    </script>
+</body>
 </html>
