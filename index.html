@@ -1,35 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Password Maker</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Security Info</title>
   <style>
     body {
-      margin: 0;
       height: 100vh;
+      margin: 0;
+      display: flex;
+      font-family: sans-serif;
+      background-color: #f0f8ff;
+    }
+
+    #sidebar {
+      width: 300px;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      overflow-y: auto;
+    }
+
+    #sidebar h2 {
+      color: midnightblue;
+      font-size: 22px;
+    }
+
+    #sidebar p, #sidebar ul {
+      font-size: 14px;
+      color: #333;
+    }
+
+    #sidebar ul {
+      padding-left: 20px;
+    }
+
+    #main {
+      flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: cornflowerblue;
+      flex-direction: column;
+      padding: 20px;
     }
 
     textarea {
-      width: 80%;
-      min-height: 45px;
-      max-height: 500px;
+      width: 500px;
+      min-height: 40px;
       padding: 10px 15px;
       font-size: 16px;
-      border: 2px solid #191970;
+      border: 2px solid midnightblue;
       border-radius: 25px;
-      resize: vertical;
+      background-color: cornflowerblue;
       box-sizing: border-box;
+      resize: none;
       overflow: auto;
-      background-color: #d4eeff;
+    }
+
+    #output {
+      margin-top: 20px;
+      font-size: 20px;
+      color: black;
+      height: 30px;
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    a {
+      color: darkblue;
+      text-decoration: underline;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-    <textarea id="input" placeholder="Type something and press Enter..."></textarea>
+
+ <div id="sidebar">
+  <h2>Practices that can make passwords vulnerable</h2>
+  <p>
+    <strong>Having nonunique passwords</strong><br>
+    Using the same password for multiple accounts makes it incredibly simple for hackers to get access into all of your accounts. The hacker who gains access to a single user account will have access to all of that user's accounts.
+  </p>
+
+  <p>
+    <strong>Creating obvious passwords</strong><br>
+    Easy to guess passwords make it easy for hackers to get access to your account. Passwords like “1234” or “password” are very common.
+  </p>
+
+  <h2>Best practices for password security</h2>
+  <p>
+    <strong>Change passwords frequently</strong><br>
+    This is one of the simpler ways to increase your password security. The most ideal schedule would be to just change your password around once a month, although this can get tedious.
+  </p>
+
+  <p>
+    <strong>Safely store passwords</strong><br>
+    Password managers can create and store complex, hard to guess passwords that you can use whenever you need to access your account.
+  </p>
+
+  <p>
+    <strong>Salting and encrypting</strong><br>
+    Encrypting your password using a cypher is also a very secure way to strengthen your password. You can also replace letters with numbers. You can also use personal information to make it harder for hackers to guess your password, although if they know your personal information, it makes it easier.
+  </p>
+</div>
+
+  <div id="main">
+    <div id="container">
+      <textarea id="input" placeholder="Type something and press Enter..."></textarea>
+      <div id="output"></div>
+    </div>
+  </div>
+
+  <script>
+    const textarea = document.getElementById('input');
+    const output = document.getElementById('output');
+    
+    textarea.addEventListener('input', function () {
+      this.style.height = 'auto';
+      this.style.height = this.scrollHeight + 'px';
+    });
+
+    textarea.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        const message = "Password Saved";
+        textarea.value = "";
+        textarea.style.height = 'auto';
+        output.textContent = ""; 
+
+        let i = 0;
+        const typeEffect = setInterval(() => {
+          output.textContent += message[i];
+          i++;
+          if (i >= message.length) {
+            clearInterval(typeEffect);
+
+            setTimeout(() => {
+              let j = message.length - 1;
+              const deleteEffect = setInterval(() => {
+                output.textContent = message.slice(0, j);
+                j--;
+                if (j < 0) {
+                  clearInterval(deleteEffect);
+                }
+              }, 25);
+            }, 2000); 
+          }
+        }, 25);
+      } 
+    });
+  </script> 
 </body>
-</html>
